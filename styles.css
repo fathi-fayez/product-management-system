@@ -1,3 +1,7 @@
+:root {
+  --app-color: rgb(14, 124, 213);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +16,6 @@ body {
   max-width: 1200px;
   margin: 30px auto;
   min-height: 300px;
-  border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -21,6 +24,110 @@ body {
 
 header {
   font-size: 2rem;
-  color: steelblue;
+  color: var(--app-color);
   margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.inputs-container input,
+.search-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: var(--app-color);
+  outline: none;
+}
+
+.inputs-container input:focus {
+  background: #eceaea;
+}
+
+.inputs-container .price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+#add-product-btn {
+  padding: 10px 20px;
+  background: var(--app-color);
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+#add-product-btn:hover {
+  background: #125892;
+}
+
+.search-container .search-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container .search-btns button {
+  padding: 10px 20px;
+  background: var(--app-color);
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 40%;
+}
+
+.search-container .search-btns button:hover {
+  background: #125892;
+}
+
+.product-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.product-list th,
+.product-list td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.product-list th {
+  background: var(--app-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+
+
+.product-list tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.product-list tr:hover {
+  background: #ddd;
+}
+
+.product-list button {
+  padding: 5px 10px;
+  background: var(--app-color);
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 5px;
+}
+
+.product-list button:hover {
+  background: #125892;
 }

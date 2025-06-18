@@ -10,26 +10,118 @@
     <div class="container">
       <header>Products Management System</header>
 
-      <div class="input-container">
+      <div class="inputs-container">
         <input
-          type="text"
-          id="product-input"
+          type="number"
+          id="product-name"
           placeholder="Enter product name"
+        />
+
+        <div class="price-container">
+          <input
+            type="number"
+            id="product-price"
+            placeholder="Enter product price"
+          />
+          <input
+            type="number"
+            id="product-taxes"
+            placeholder="Enter product taxes"
+          />
+          <input
+            type="number"
+            id="product-adds"
+            placeholder="Enter product adds"
+          />
+          <input
+            type="number"
+            id="product-discount"
+            placeholder="Enter product discount"
+          />
+          <small>Total: 55353</small>
+        </div>
+
+        <input
+          type="number"
+          id="product-count"
+          placeholder="Enter product count"
         />
         <input
           type="text"
-          id="product-input"
-          placeholder="Enter product name"
+          id="product-category"
+          placeholder="Enter product category"
         />
-        <input
-          type="text"
-          id="product-input"
-          placeholder="Enter product name"
-        />
-        
+
+        <button id="add-product-btn">Add Product</button>
       </div>
 
-      <div class="product-list"></div>
+      <div iv class="search-container">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search for a product"
+        />
+        <div class="search-btns">
+          <button id="search-title-btn">Search by title</button>
+          <button id="search-category-btn">Search by category</button>
+        </div>
+      </div>
+
+      <table class="product-list">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Taxes</th>
+            <th>Adds</th>
+            <th>Discount</th>
+            <th>Count</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="product-list">
+          <tr>
+            <td>Product 1</td>
+            <td>100</td>
+            <td>10</td>
+            <td>5</td>
+            <td>5</td>
+            <td>10</td>
+            <td>Category 1</td>
+            <td>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Product 1</td>
+            <td>100</td>
+            <td>10</td>
+            <td>5</td>
+            <td>5</td>
+            <td>10</td>
+            <td>Category 1</td>
+            <td>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Product 1</td>
+            <td>100</td>
+            <td>10</td>
+            <td>5</td>
+            <td>5</td>
+            <td>10</td>
+            <td>Category 1</td>
+            <td>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <script src="main.js"></script>
   </body>
