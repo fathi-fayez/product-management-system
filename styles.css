@@ -131,3 +131,8 @@ header {
 .product-list button:hover {
   background: #125892;
 }
+
+.total-price {
+  padding: 10px 20px;
+
+}
