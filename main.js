@@ -11,6 +11,7 @@ let productList = document.getElementById("product-list");
 let searchInput = document.getElementById("search-input");
 let searchTitleBtn = document.getElementById("search-title-btn");
 let searchCategoryBtn = document.getElementById("search-category-btn");
+let allProducts = [];
 
 addBtn.addEventListener("click", function () {
   let product = {
@@ -21,6 +22,7 @@ addBtn.addEventListener("click", function () {
     discount: discount.value,
     count: count.value,
     category: category.value,
+    id: allProducts.length + 1,
   };
 
   if (
@@ -35,7 +37,11 @@ addBtn.addEventListener("click", function () {
     alert("Please fill in all the fields");
     return;
   }
-  allProducts.push(product);
+
+  for (let index = 0; index < product.count; index++) {
+    allProducts.push(product);
+  }
+
   localStorage.setItem("products", JSON.stringify(allProducts));
   renderProducts();
 
@@ -50,8 +56,6 @@ addBtn.addEventListener("click", function () {
 
 [price, taxes, adds, discount].forEach(function (input) {
   input.addEventListener("input", function () {
-    console.log(allProducts);
-
     getTotal({
       price: price.value,
       taxes: taxes.value,
@@ -73,19 +77,16 @@ function getTotal(product) {
   totalPrice.style.backgroundColor = "green";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  renderProducts();
-});
-
 function renderProducts() {
   let products = localStorage.getItem("products");
   if (products) {
     allProducts = JSON.parse(products);
   }
   productList.innerHTML = "";
-  allProducts.forEach(function (product) {
+  allProducts.forEach(function (product, index) {
     let tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${index + 1}</td>
       <td>${product.title}</td>
       <td>${product.price}</td>
       <td>${product.taxes}</td>
@@ -95,9 +96,16 @@ function renderProducts() {
       <td>${product.category}</td>
       <td>
         <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
+        <button onclick="deleteProduct(${index})" class="delete-btn">Delete</button>
       </td>
     `;
     productList.appendChild(tr);
   });
 }
+
+function deleteProduct(index) {
+  allProducts.splice(index, 1);
+  localStorage.setItem("products", JSON.stringify(allProducts));
+  renderProducts();
+}
+renderProducts();
