@@ -12,6 +12,8 @@ let searchInput = document.getElementById("search-input");
 let searchTitleBtn = document.getElementById("search-title-btn");
 let searchCategoryBtn = document.getElementById("search-category-btn");
 let allProducts = [];
+let productUpdatedIndex;
+let searchtype = "title";
 
 addBtn.addEventListener("click", function () {
   let product = {
@@ -20,7 +22,7 @@ addBtn.addEventListener("click", function () {
     taxes: taxes.value,
     adds: adds.value,
     discount: discount.value,
-    count: count.value,
+    count: count.value || 1,
     category: category.value,
     id: allProducts.length + 1,
   };
@@ -31,15 +33,26 @@ addBtn.addEventListener("click", function () {
     product.taxes === "" ||
     product.adds === "" ||
     product.discount === "" ||
-    product.count === "" ||
     product.category === ""
   ) {
     alert("Please fill in all the fields");
     return;
   }
 
-  for (let index = 0; index < product.count; index++) {
-    allProducts.push(product);
+  if (addBtn.innerHTML === "Update") {
+    allProducts[productUpdatedIndex] = product;
+    console.log(allProducts);
+
+    addBtn.innerHTML = "Add Product";
+    count.style.display = "block";
+  } else {
+    if (product.count > 1) {
+      for (let index = 0; index < product.count; index++) {
+        allProducts.push(product);
+      }
+    } else {
+      allProducts.push(product);
+    }
   }
 
   localStorage.setItem("products", JSON.stringify(allProducts));
@@ -54,7 +67,54 @@ addBtn.addEventListener("click", function () {
   category.value = "";
 });
 
-[price, taxes, adds, discount].forEach(function (input) {
+searchCategoryBtn.addEventListener("click", function () {
+  searchtype = "category";
+  searchInput.focus;
+  searchInput.placeholder = "Enter product category";
+});
+
+searchTitleBtn.addEventListener("click", function () {
+  searchtype = "title";
+  searchInput.focus();
+  searchInput.placeholder = "Enter product title";
+});
+
+searchInput.addEventListener("input", function () {
+  searchResults = allProducts.filter(function (product) {
+    if (searchtype === "title") {
+      return product.title
+        .toLowerCase()
+        .includes(searchInput.value.toLowerCase());
+    } else if (searchtype === "category") {
+      return product.category
+        .toLowerCase()
+        .includes(searchInput.value.toLowerCase());
+    }
+  });
+
+  productList.innerHTML = "";
+  searchResults.forEach(function (product, index) {
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${product.title}</td>
+      <td>${product.price}</td>
+      <td>${product.taxes}</td>
+      <td>${product.adds}</td>
+      <td>${product.discount}</td>
+      <td>${product.count}</td>
+      <td>${product.category}</td>
+      <td>
+        <button onclick="editProduct(${index})" class="edit-btn">Edit</button>
+        <button onclick="deleteProduct(${index})" class="delete-btn">Delete</button>
+      </td>
+    `;
+
+    productList.appendChild(tr);
+  });
+});
+
+[(price, taxes, adds, discount)].forEach(function (input) {
   input.addEventListener("input", function () {
     getTotal({
       price: price.value,
@@ -95,10 +155,11 @@ function renderProducts() {
       <td>${product.count}</td>
       <td>${product.category}</td>
       <td>
-        <button class="edit-btn">Edit</button>
+        <button onclick="editProduct(${index})" class="edit-btn">Edit</button>
         <button onclick="deleteProduct(${index})" class="delete-btn">Delete</button>
       </td>
     `;
+
     productList.appendChild(tr);
   });
 }
@@ -108,4 +169,27 @@ function deleteProduct(index) {
   localStorage.setItem("products", JSON.stringify(allProducts));
   renderProducts();
 }
+
+function editProduct(index) {
+  title.value = allProducts[index].title;
+  price.value = allProducts[index].price;
+  taxes.value = allProducts[index].taxes;
+  adds.value = allProducts[index].adds;
+  discount.value = allProducts[index].discount;
+  category.value = allProducts[index].category;
+  productUpdatedIndex = index;
+
+  count.style.display = "none";
+  addBtn.innerHTML = "Update";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  getTotal({
+    price: price.value,
+    taxes: taxes.value,
+    adds: adds.value,
+    discount: discount.value,
+  });
+  // renderProducts();
+}
+
 renderProducts();
