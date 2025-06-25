@@ -69,17 +69,25 @@ addBtn.addEventListener("click", function () {
 
 searchCategoryBtn.addEventListener("click", function () {
   searchtype = "category";
+  searchInput.value = "";
   searchInput.focus;
   searchInput.placeholder = "Enter product category";
+  searchProducts();
 });
 
 searchTitleBtn.addEventListener("click", function () {
   searchtype = "title";
+  searchInput.value = "";
   searchInput.focus();
   searchInput.placeholder = "Enter product title";
+  searchProducts(); 
 });
 
 searchInput.addEventListener("input", function () {
+  searchProducts();
+});
+
+function searchProducts() {
   searchResults = allProducts.filter(function (product) {
     if (searchtype === "title") {
       return product.title
@@ -112,7 +120,7 @@ searchInput.addEventListener("input", function () {
 
     productList.appendChild(tr);
   });
-});
+}
 
 [(price, taxes, adds, discount)].forEach(function (input) {
   input.addEventListener("input", function () {

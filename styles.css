@@ -17,8 +17,6 @@ body {
   margin: 30px auto;
   min-height: 300px;
   padding: 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
@@ -107,8 +105,6 @@ header {
   font-weight: 600;
 }
 
-
-
 .product-list tr:nth-child(even) {
   background: #f2f2f2;
 }
@@ -134,5 +130,4 @@ header {
 
 .total-price {
   padding: 10px 20px;
-
 }
